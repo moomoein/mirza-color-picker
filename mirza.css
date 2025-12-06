@@ -1,0 +1,104 @@
+:root {
+  --mcp-font: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --mcp-font-fa: 'Vazirmatn', 'Tahoma', sans-serif;
+  --mcp-z: 10000;
+  --mcp-radius: 16px;
+  --mcp-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+[data-mcp-theme="dark"] {
+  --mcp-bg: #1e1f2b;
+  --mcp-bg-hover: #2a2b38;
+  --mcp-border: rgba(255,255,255,0.08);
+  --mcp-text: #ffffff;
+  --mcp-text-sub: rgba(255,255,255,0.5);
+  --mcp-input-bg: rgba(0,0,0,0.2);
+  --mcp-accent: #7c5cff;
+  --mcp-shadow: 0 20px 60px rgba(0,0,0,0.6);
+  --mcp-tab-bg: rgba(0,0,0,0.2);
+  --mcp-glider-bg: #2a2b38;
+}
+
+[data-mcp-theme="light"] {
+  --mcp-bg: #ffffff;
+  --mcp-bg-hover: #f3f4f6;
+  --mcp-border: rgba(0,0,0,0.08);
+  --mcp-text: #1f2937;
+  --mcp-text-sub: rgba(0,0,0,0.4);
+  --mcp-input-bg: #f3f4f6;
+  --mcp-accent: #6366f1;
+  --mcp-shadow: 0 20px 60px rgba(0,0,0,0.15);
+  --mcp-tab-bg: #f3f4f6;
+  --mcp-glider-bg: #ffffff;
+}
+
+.mcp-wrapper * { box-sizing: border-box; outline: none; -webkit-tap-highlight-color: transparent; }
+
+.mcp-wrapper {
+  position: fixed;
+  background: var(--mcp-bg);
+  border: 1px solid var(--mcp-border);
+  border-radius: var(--mcp-radius);
+  box-shadow: var(--mcp-shadow);
+  padding: 16px;
+  z-index: var(--mcp-z);
+  opacity: 0; visibility: hidden;
+  transform: scale(0.95) translateY(10px);
+  transition: opacity 0.2s, transform 0.2s var(--mcp-ease), visibility 0.2s;
+  user-select: none;
+  display: flex; flex-direction: column; gap: 16px;
+  font-family: var(--mcp-font);
+}
+.mcp-wrapper.is-visible { opacity: 1; visibility: visible; transform: scale(1) translateY(0); }
+.mcp-wrapper[dir="rtl"] { font-family: var(--mcp-font-fa); direction: rtl; }
+
+.mcp-header { display: flex; justify-content: space-between; align-items: center; }
+.mcp-title { font-size: 13px; font-weight: 600; color: var(--mcp-text); }
+.mcp-close { cursor: pointer; color: var(--mcp-text-sub); background: none; border: none; padding: 4px; }
+.mcp-close:hover { color: var(--mcp-text); }
+
+.mcp-layout-default { width: 300px; }
+.mcp-layout-default .mcp-main-area { display: flex; flex-direction: column; gap: 16px; }
+.mcp-layout-default .mcp-saturation { width: 100%; height: 160px; }
+.mcp-layout-default .mcp-sliders { display: flex; flex-direction: column; gap: 10px; }
+.mcp-layout-default .mcp-slider { width: 100%; height: 12px; }
+
+.mcp-layout-vertical { width: 340px; }
+.mcp-layout-vertical .mcp-main-area { display: grid; grid-template-columns: 1fr 24px; gap: 12px; height: 200px; }
+.mcp-layout-vertical .mcp-saturation { width: 100%; height: 100%; }
+.mcp-layout-vertical .mcp-sliders { display: flex; flex-direction: row; gap: 8px; height: 100%; }
+.mcp-layout-vertical .mcp-slider { width: 12px; height: 100%; }
+.mcp-layout-vertical .mcp-last-used { display: none; }
+
+.mcp-saturation { border-radius: 12px; position: relative; overflow: hidden; cursor: crosshair; touch-action: none; }
+.mcp-saturation canvas { display: block; width: 100%; height: 100%; }
+.mcp-cursor { position: absolute; width: 16px; height: 16px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.3); transform: translate(-50%, -50%); pointer-events: none; }
+
+.mcp-slider { position: relative; border-radius: 10px; cursor: pointer; touch-action: none; }
+.mcp-slider canvas { width: 100%; height: 100%; border-radius: 10px; display: block; }
+.mcp-knob { position: absolute; background: #fff; border-radius: 50%; box-shadow: 0 1px 3px rgba(0,0,0,0.3); pointer-events: none; border: 2px solid #fff; }
+.mcp-layout-default .mcp-knob { top: 50%; width: 16px; height: 16px; transform: translate(-50%, -50%); }
+.mcp-layout-vertical .mcp-knob { left: 50%; width: 16px; height: 16px; transform: translate(-50%, -50%); }
+
+.mcp-tabs { display: flex; background: var(--mcp-tab-bg); padding: 4px; border-radius: 10px; position: relative; height: 36px; }
+.mcp-tab { flex: 1; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; color: var(--mcp-text-sub); cursor: pointer; border-radius: 8px; position: relative; z-index: 2; transition: color 0.2s; user-select: none; }
+.mcp-tab.is-active { color: var(--mcp-text); }
+.mcp-tab-glider { position: absolute; top: 4px; bottom: 4px; left: 0; width: 0; background: var(--mcp-glider-bg); border-radius: 7px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); z-index: 1; transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), width 0.25s cubic-bezier(0.2, 0.8, 0.2, 1); }
+
+.mcp-controls-row { display: flex; width: 100%; }
+.mcp-inputs-container { width: 100%; }
+.mcp-inputs { display: flex; gap: 8px; width: 100%; }
+.mcp-input-group { flex: 1; position: relative; }
+.mcp-input { width: 100%; background: var(--mcp-input-bg); border: 1px solid transparent; border-radius: 8px; padding: 8px; color: var(--mcp-text); font-family: monospace; font-size: 12px; text-align: center; direction: ltr; }
+.mcp-input:focus { border-color: var(--mcp-accent); background: var(--mcp-bg); }
+.mcp-label { display: block; text-align: center; font-size: 10px; color: var(--mcp-text-sub); margin-top: 4px; text-transform: uppercase; }
+
+.mcp-last-used { margin-top: 4px; }
+.mcp-last-title { font-size: 11px; color: var(--mcp-text-sub); margin-bottom: 6px; display: block; }
+.mcp-swatches { display: flex; gap: 6px; overflow: hidden; }
+.mcp-swatch { width: 24px; height: 24px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.2); cursor: pointer; position: relative; overflow: hidden; }
+.mcp-swatch::before { content: ''; position: absolute; inset: 0; z-index: -1; background-image: linear-gradient(45deg,#ccc 25%,transparent 25%), linear-gradient(-45deg,#ccc 25%,transparent 25%), linear-gradient(45deg,transparent 75%,#ccc 75%), linear-gradient(-45deg,transparent 75%,#ccc 75%); background-size: 8px 8px; background-color: #fff; }
+
+.mcp-copy-btn { position: absolute; right: 4px; top: 50%; transform: translateY(-65%); font-size: 9px; color: var(--mcp-accent); cursor: pointer; opacity: 0; transition: 0.2s; background: var(--mcp-bg); padding: 2px 4px; border-radius: 4px; }
+.mcp-input-group:hover .mcp-copy-btn { opacity: 1; transform: translateY(-50%); }
+.mcp-wrapper[dir="rtl"] .mcp-copy-btn { right: auto; left: 4px; }

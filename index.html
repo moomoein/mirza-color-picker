@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Mirza Color Picker Demo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- لینک کردن فایل استایل کتابخانه -->
+<link rel="stylesheet" href="mirza.css">
+<style>
+  body {
+    margin: 0; min-height: 100vh;
+    background: radial-gradient(circle at 50% 0%, #2a2d3d, #090a0f 80%);
+    font-family: sans-serif;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 30px;
+  }
+  .demo-trigger {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+    padding: 12px 20px; border-radius: 12px; color: #fff; cursor: pointer;
+    display: flex; align-items: center; gap: 12px; font-size: 14px; width: 300px;
+  }
+  .demo-swatch { width: 24px; height: 24px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.3); }
+</style>
+</head>
+<body>
+
+  <!-- Demo 1 -->
+  <div id="trigger1" class="demo-trigger">
+    <div class="demo-swatch" style="background: #7c5cff"></div>
+    <span>Default (LTR)</span>
+  </div>
+
+  <!-- Demo 2 -->
+  <div id="trigger2" class="demo-trigger" style="direction:rtl">
+    <div class="demo-swatch" style="background: #ff5c5c"></div>
+    <span>فارسی (RTL)</span>
+  </div>
+
+  <!-- Demo 3 -->
+  <div id="trigger3" class="demo-trigger" style="background:#fff; color:#333">
+    <div class="demo-swatch" style="background: #00D1FF"></div>
+    <span>Studio Mode (Vertical)</span>
+  </div>
+
+  <!-- لینک کردن فایل جاوااسکریپت کتابخانه -->
+  <script src="mirza.js"></script>
+
+  <script>
+    // استفاده از کتابخانه
+    document.addEventListener('DOMContentLoaded', () => {
+      
+      // 1. Default
+      new MirzaColorPicker({
+        trigger: '#trigger1',
+        theme: 'dark',
+        layout: 'default',
+        lang: 'en',
+        defaultColor: '#7c5cff',
+        onChange: (color) => {
+          document.querySelector('#trigger1 .demo-swatch').style.background = color;
+        }
+      });
+
+      // 2. Persian
+      new MirzaColorPicker({
+        trigger: '#trigger2',
+        theme: 'dark',
+        layout: 'default',
+        lang: 'fa',
+        defaultColor: '#ff5c5c',
+        onChange: (color) => {
+          document.querySelector('#trigger2 .demo-swatch').style.background = color;
+        }
+      });
+
+      // 3. Vertical
+      new MirzaColorPicker({
+        trigger: '#trigger3',
+        theme: 'light',
+        layout: 'vertical',
+        lang: 'en',
+        defaultColor: '#00D1FF',
+        onChange: (color) => {
+          document.querySelector('#trigger3 .demo-swatch').style.background = color;
+        }
+      });
+
+    });
+  </script>
+</body>
+</html>
