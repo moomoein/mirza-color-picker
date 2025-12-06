@@ -33,7 +33,3 @@ new MirzaColorPicker({
   }
 });
 ```
-
-## License
-MIT
-```
